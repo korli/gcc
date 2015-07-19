@@ -410,6 +410,9 @@ case "${host}" in
   i[[3456789]]86-*-msdosdjgpp*)
     noconfigdirs="$noconfigdirs tcl tk itcl"
     ;;
+  *-*-haiku*)
+    noconfigdirs="$noconfigdirs tk itcl libgui gdb"
+    ;;
 esac
 
 
@@ -787,6 +790,9 @@ case "${target}" in
   *-*-darwin*)
     noconfigdirs="$noconfigdirs ${libgcj}"
     ;;
+  *-*-haiku*)
+    noconfigdirs="$noconfigdirs ${libgcj}"
+    ;;
   *-*-netware*)
     noconfigdirs="$noconfigdirs ${libgcj}"
     ;;
@@ -974,6 +980,9 @@ case "${target}" in
   *-*-freebsd*)
     noconfigdirs="$noconfigdirs target-newlib target-libgloss"
     ;;
+  *-*-haiku*)
+    noconfigdirs="$noconfigdirs target-newlib target-libgloss"
+    ;;
   *-*-linux* | *-*-gnu* | *-*-k*bsd*-gnu | *-*-kopensolaris*-gnu)
     noconfigdirs="$noconfigdirs target-newlib target-libgloss"
     ;;
@@ -1026,6 +1035,9 @@ case "${target}" in
 	&& test -f /usr/local/include/gmp.h; then
       with_gmp=/usr/local
     fi
+    ;;
+  *-*-haiku*)
+    noconfigdirs="$noconfigdirs gdb target-libiberty"
     ;;
   *-*-kaos*)
     # Remove unsupported stuff on all kaOS configurations.
