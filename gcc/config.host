@@ -99,7 +99,7 @@ case ${host} in
 esac
 
 case ${host} in
-  arm*-*-linux*)
+  arm*-*-haiku* | arm*-*-linux*)
     case ${target} in
       arm*-*-*)
 	host_extra_gcc_objs="driver-arm.o"
@@ -125,9 +125,11 @@ case ${host} in
 	;;
     esac
     ;;
-  mips*-*-linux*)
+  mips*-*-linux* \
+  | mips*-*-haiku* )
     case ${target} in
-      mips*-*-linux*)
+      mips*-*-linux* \
+      | mips*-*-haiku* )
 	host_extra_gcc_objs="driver-native.o"
 	host_xmake_file="${host_xmake_file} mips/x-native"
       ;;

@@ -96,6 +96,8 @@ build_objdir := $(toplevel_builddir)/$(build_subdir)
 build_libobjdir := $(toplevel_builddir)/$(build_libsubdir)
 target_objdir := $(toplevel_builddir)/$(target_subdir)
 
+HYBRID_SECONDARY = @HYBRID_SECONDARY@
+
 # --------
 # Defined vpaths
 # --------
@@ -1942,6 +1944,10 @@ DRIVER_DEFINES = \
   $(if $(SHLIB),$(if $(filter yes,@enable_shared@),-DENABLE_SHARED_LIBGCC)) \
   -DCONFIGURE_SPECS="\"@CONFIGURE_SPECS@\""
 
+ifneq ($(HYBRID_SECONDARY),)
+DRIVER_DEFINES += -DHYBRID_SECONDARY="\"$(HYBRID_SECONDARY)\""
+endif
+
 CFLAGS-gcc.o += $(DRIVER_DEFINES)
 
 specs.h : s-specs ; @true
@@ -2494,7 +2500,7 @@ $(genprogerr:%=build/gen%$(build_exeext)): $(BUILD_ERRORS)
 genprog = $(genprogerr) check checksum condmd
 
 # These programs need libs over and above what they get from the above list.
-build/genautomata$(build_exeext) : BUILD_LIBS += -lm
+build/genautomata$(build_exeext) : BUILD_LIBS += @build_math_library@
 
 # These programs are not linked with the MD reader.
 build/gengtype$(build_exeext) : build/gengtype-lex.o build/gengtype-parse.o \
@@ -2541,6 +2547,10 @@ PREPROCESSOR_DEFINES = \
   -DPREFIX=\"$(prefix)/\" \
   -DSTANDARD_EXEC_PREFIX=\"$(libdir)/gcc/\" \
   @TARGET_SYSTEM_ROOT_DEFINE@
+
+ifneq ($(HYBRID_SECONDARY),)
+PREPROCESSOR_DEFINES += -DHYBRID_SECONDARY="\"$(HYBRID_SECONDARY)\""
+endif
 
 CFLAGS-cppbuiltin.o += $(PREPROCESSOR_DEFINES) -DBASEVER=$(BASEVER_s)
 cppbuiltin.o: $(BASEVER)

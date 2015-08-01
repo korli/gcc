@@ -44,9 +44,11 @@ extern "C" {
 #  define IS_ABSOLUTE_PATH(f) IS_DOS_ABSOLUTE_PATH (f)
 #else /* not DOSish */
 #  if defined(__APPLE__)
+/*
 #    ifndef HAVE_CASE_INSENSITIVE_FILE_SYSTEM
 #      define HAVE_CASE_INSENSITIVE_FILE_SYSTEM 1
 #    endif
+*/
 #  endif /* __APPLE__ */
 #  define HAS_DRIVE_SPEC(f) (0)
 #  define IS_DIR_SEPARATOR(c) IS_UNIX_DIR_SEPARATOR (c)
